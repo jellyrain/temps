@@ -1,11 +1,14 @@
-(function (global, factory) {
+; (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
         typeof define === 'function' && define.amd ? define(factory) :
             (global = global || self, global.temps = factory());
 }(this, function () {
     'use strict';
 
-    const temps = {};
+    const version = '1.1.0';
+    function temps() {
+        return { version };
+    }
 
     // 获取 时间
     function getTime(timestamp) {
@@ -117,19 +120,22 @@
         return Math.floor(years) + "年前";
     }
 
-    temps.getTime = getTime;
-    temps.getTime.year = getYear;
-    temps.getTime.quarter = getQuarter;
-    temps.getTime.month = getMonth;
-    temps.getTime.week = getWeek;
-    temps.getTime.day = getDay;
-    temps.getTime.hour = getHour;
-    temps.getTime.minute = getMinute;
-    temps.getTime.second = getSecond;
-    temps.getTimeStamp = getTimeStamp;
-    temps.format = format;
-    temps.format.chinese = formatChinese;
-    temps.relativeTime = getRelativeTime;
+    temps.getTime = temps.prototype.getTime = getTime;
+    // getTime下方法
+    getTime.year = getYear;
+    getTime.quarter = getQuarter;
+    getTime.month = getMonth;
+    getTime.week = getWeek;
+    getTime.day = getDay;
+    getTime.hour = getHour;
+    getTime.minute = getMinute;
+    getTime.second = getSecond;
+    temps.getTimeStamp = temps.prototype.getTimeStamp = getTimeStamp;
+    temps.format = temps.prototype.format = format;
+    // format下方法
+    format.chinese = formatChinese;
+    temps.relativeTime = temps.prototype.relativeTime = getRelativeTime;
+    temps.prototype.version = version;
 
     return temps;
 }));
