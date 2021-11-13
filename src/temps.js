@@ -12,7 +12,7 @@
 
     // 获取 时间
     function getTime(timestamp) {
-        return timestamp != undefined ? new Date(timestamp) : new Date;
+        return timestamp != undefined ? new Date(timestamp) : new Date();
     }
 
     // 获取 时间戳
@@ -22,12 +22,12 @@
 
     // 获取 年
     function getYear(timestamp) {
-        return timestamp != undefined ? getTime(timestamp).getFullYear() : getTime().getFullYear();
+        return getTime(timestamp).getFullYear();
     }
 
     // 获取 月
     function getMonth(timestamp) {
-        return timestamp != undefined ? getTime(timestamp).getMonth() + 1 : getTime().getMonth() + 1;
+        return getTime(timestamp).getMonth() + 1;
     }
 
     // 获取 季度
@@ -42,27 +42,48 @@
 
     // 获取 星期
     function getWeek(timestamp) {
-        return timestamp != undefined ? getTime(timestamp).getDay() : getTime().getDay();
+        return getTime(timestamp).getDay();
     }
 
     // 获取 日
     function getDay(timestamp) {
-        return timestamp != undefined ? getTime(timestamp).getDate() : getTime().getDate();
+        return getTime(timestamp).getDate();
     }
 
     // 获取 时
     function getHour(timestamp) {
-        return timestamp != undefined ? getTime(timestamp).getHours() : getTime().getHours();
+        return getTime(timestamp).getHours();
     }
 
     // 获取 分
     function getMinute(timestamp) {
-        return timestamp != undefined ? getTime(timestamp).getMinutes() : getTime().getMinutes();
+        return getTime(timestamp).getMinutes();
     }
 
     // 获取 秒
     function getSecond(timestamp) {
-        return timestamp != undefined ? getTime(timestamp).getSeconds() : getTime().getSeconds();
+        return getTime(timestamp).getSeconds();
+    }
+
+    //获取 全部
+    function getTimeAll(timestamp) {
+        const time = getTime(timestamp);
+        const month = time.getMonth() + 1;
+        let quarter = 0;
+        if (1 <= month <= 3) quarter = 1;
+        if (4 <= month <= 6) quarter = 2;
+        if (7 <= month <= 9) quarter = 3;
+        if (10 <= month <= 12) quarter = 4;
+        return {
+            year: time.getFullYear(),
+            quarter,
+            month,
+            week: time.getDay(),
+            day: time.getDate(),
+            hour: time.getHours(),
+            minute: time.getMinutes(),
+            second: time.getSeconds()
+        };
     }
 
     // 默认 格式化
@@ -130,6 +151,7 @@
     getTime.hour = getHour;
     getTime.minute = getMinute;
     getTime.second = getSecond;
+    getTime.all = getTimeAll;
     temps.getTimeStamp = temps.prototype.getTimeStamp = getTimeStamp;
     temps.format = temps.prototype.format = format;
     // format下方法
